@@ -1,0 +1,281 @@
+@prefix : <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival> .
+
+<http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival> rdf:type owl:Ontology ;
+                                                                          :Author "Yuanyuan Zhou" ;
+                                                                          :E-Mail_Address "yz4n20@soton.ac.uk"^^xsd:string ;
+                                                                          :StudentID "31519733"^^xsd:int ;
+                                                                          rdfs:comment "An Arts Festival ontology which represent information about the events, exhibitions and performances that have been scheduled for the festival, and their associated people"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Author
+:Author rdf:type owl:AnnotationProperty ;
+        rdfs:label "Author"@en .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#E-Mail_Address
+:E-Mail_Address rdf:type owl:AnnotationProperty ;
+                rdfs:label "ECS E-Mail Address"@en ;
+                rdfs:subPropertyOf :Author .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#StudentID
+:StudentID rdf:type owl:AnnotationProperty ;
+           rdfs:label "Student ID"@en ;
+           rdfs:subPropertyOf :Author .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Exhibition
+:Exhibition rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Performance
+:Performance rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Person
+:Person rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_performed_by
+:is_performed_by rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :Performance ;
+                 rdfs:domain :Performance ;
+                 rdfs:range :Performer .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_performer_in
+:is_performer_in rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :Person ;
+                 rdfs:domain :Performer ;
+                 rdfs:range :Performance .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_sponsored_by
+:is_sponsored_by rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :Exhibition ;
+                 rdfs:domain :Exhibition ;
+                 rdfs:range :Sponsor .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Acoustic
+:Acoustic rdf:type owl:Class ;
+          rdfs:subClassOf :Music .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Blues
+:Blues rdf:type owl:Class ;
+       rdfs:subClassOf :Music .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Cabaret
+:Cabaret rdf:type owl:Class ;
+         rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ChildrensShow
+:ChildrensShow rdf:type owl:Class ;
+               rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Circus
+:Circus rdf:type owl:Class ;
+        rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Classical
+:Classical rdf:type owl:Class ;
+           rdfs:subClassOf :Music .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Clown
+:Clown rdf:type owl:Class ;
+       rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Comedy
+:Comedy rdf:type owl:Class ;
+        rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Contemporary
+:Contemporary rdf:type owl:Class ;
+              rdfs:subClassOf :DisplayArt .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Craft
+:Craft rdf:type owl:Class ;
+       rdfs:subClassOf :DisplayArt .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Dance
+:Dance rdf:type owl:Class ;
+       rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#DisplayArt
+:DisplayArt rdf:type owl:Class ;
+            rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Event
+:Event rdf:type owl:Class ;
+       owl:disjointWith :Exhibition ,
+                        :Genre ,
+                        :Performance ,
+                        :Person ,
+                        :Sponsor ,
+                        :Venue .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Exhibition
+:Exhibition rdf:type owl:Class ;
+            owl:disjointWith :Genre ,
+                             :Performance ,
+                             :Person ,
+                             :Sponsor ,
+                             :Venue .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Genre
+:Genre rdf:type owl:Class ;
+       owl:disjointWith :Performance ,
+                        :Person ,
+                        :Sponsor ,
+                        :Venue .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Improv
+:Improv rdf:type owl:Class ;
+        rdfs:subClassOf :Comedy .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Interactive
+:Interactive rdf:type owl:Class ;
+             rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Jazz
+:Jazz rdf:type owl:Class ;
+      rdfs:subClassOf :Music .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Magic
+:Magic rdf:type owl:Class ;
+       rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Music
+:Music rdf:type owl:Class ;
+       rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Musicals
+:Musicals rdf:type owl:Class ;
+          rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Opera
+:Opera rdf:type owl:Class ;
+       rdfs:subClassOf :Music .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Painting
+:Painting rdf:type owl:Class ;
+          rdfs:subClassOf :DisplayArt .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Performance
+:Performance rdf:type owl:Class ;
+             owl:disjointWith :Person ,
+                              :Sponsor ,
+                              :Venue .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Performer
+:Performer rdf:type owl:Class ;
+           rdfs:subClassOf :Person .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Person
+:Person rdf:type owl:Class ;
+        owl:disjointWith :Venue .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Photography
+:Photography rdf:type owl:Class ;
+             rdfs:subClassOf :DisplayArt .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#PhysicalTheatre
+:PhysicalTheatre rdf:type owl:Class ;
+                 rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Rock
+:Rock rdf:type owl:Class ;
+      rdfs:subClassOf :Music .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Sculpture
+:Sculpture rdf:type owl:Class ;
+           rdfs:subClassOf :DisplayArt .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#SpokenWord
+:SpokenWord rdf:type owl:Class ;
+            rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Sponsor
+:Sponsor rdf:type owl:Class ;
+         rdfs:subClassOf :Person ;
+         owl:disjointWith :Venue .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Stand-up
+:Stand-up rdf:type owl:Class ;
+          rdfs:subClassOf :Comedy .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Storytelling
+:Storytelling rdf:type owl:Class ;
+              rdfs:subClassOf :Comedy .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Theatre
+:Theatre rdf:type owl:Class ;
+         rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Variety
+:Variety rdf:type owl:Class ;
+         rdfs:subClassOf :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Venue
+:Venue rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#VisualArt
+:VisualArt rdf:type owl:Class ;
+           rdfs:subClassOf :DisplayArt .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
