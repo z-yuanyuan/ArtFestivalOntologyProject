@@ -1,0 +1,80 @@
+Arts Festival SPARQL Queries:
+
+1.What is the admission price for Dave Dixon’s show?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#>
+SELECT ?AdmissionPrice
+WHERE { 
+	?Show :is_performed_by ?Performer .
+	?Performer :PerformerName "Dave Dixon"^^xsd:string .
+	?Show :ShowAdmissionPrice ?AdmissionPrice .
+}
+
+
+2.How long is the production of Antigone at the Assembly Rooms?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#>
+SELECT ?ShowDuration
+WHERE { 
+	?Show :is_held_at ?Venue .
+	?Venue :VenueName "Assembly Rooms"^^xsd:string .
+	?Show :ShowName "Production of Antigone"^^xsd:string .
+	?Show :ShowDuration ?ShowDuration .
+}
+
+
+3.What is the first event at the Temperance Hall?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#>
+SELECT ?ShowName
+WHERE { 
+	?Show :is_held_at ?Venue .
+	?Venue :VenueName "Temperance Hall"^^xsd:string .
+	?Show :ShowName ?ShowName .
+    	?Show :ShowDatetime "2021-08-08T09:00:00"^^xsd:dateTime .
+}
+
+
+4.Who are the performers of the show titled “All the World’s a Stage”?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#>
+SELECT ?PerformerName
+WHERE { 
+	?Show :is_performed_by ?Performer .
+	?Performer :PerformerName ?PerformerName .
+	?Show :ShowName "All the World’s a Stage"^^xsd:string .
+}
+
+
+***********************************************************************************
+Expected results of SPARQL Queries:
+
+1)
+"£35"^^<http://www.w3.org/2001/XMLSchema#string>
+
+2)
+"45 Mins"^^<http://www.w3.org/2001/XMLSchema#string>
+
+3)
+"Dance Forms 76th International Showcase"^^<http://www.w3.org/2001/XMLSchema#string>
+
+4)
+"Mark Bunyan"^^<http://www.w3.org/2001/XMLSchema#string>
+"Lauren Meckel"^^<http://www.w3.org/2001/XMLSchema#string>
+

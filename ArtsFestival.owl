@@ -10,11 +10,20 @@
                                                                           :Author "Yuanyuan Zhou" ;
                                                                           :E-Mail_Address "yz4n20@soton.ac.uk"^^xsd:string ;
                                                                           :StudentID "31519733"^^xsd:int ;
-                                                                          rdfs:comment "An Arts Festival ontology which represent information about the events, exhibitions and performances that have been scheduled for the festival, and their associated people"@en .
+                                                                          rdfs:comment "An Arts Festival ontology which represent information about the events, exhibitions and performances that have been scheduled for the festival, and their associated people"@en ;
+                                                                          rdfs:label "Arts Festivial Ontology"^^xsd:string .
 
 #################################################################
 #    Annotation properties
 #################################################################
+
+###  http://purl.org/dc/elements/1.1/Description
+<http://purl.org/dc/elements/1.1/Description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/example
+<http://purl.org/dc/elements/1.1/example> rdf:type owl:AnnotationProperty .
+
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Author
 :Author rdf:type owl:AnnotationProperty ;
@@ -27,6 +36,11 @@
                 rdfs:subPropertyOf :Author .
 
 
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Property_Usage
+:Property_Usage rdf:type owl:AnnotationProperty ;
+                rdfs:label "Property Usage"^^xsd:string .
+
+
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#StudentID
 :StudentID rdf:type owl:AnnotationProperty ;
            rdfs:label "Student ID"@en ;
@@ -37,245 +51,668 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Exhibition
-:Exhibition rdf:type owl:ObjectProperty .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#hasGenre
+:hasGenre rdf:type owl:ObjectProperty ;
+          owl:inverseOf :is_genre_of ;
+          rdfs:domain :Genre ;
+          rdfs:range :Show ;
+          <http://purl.org/dc/elements/1.1/Description> "A genre has a genre type of a show"^^xsd:string ;
+          :Property_Usage "?Genre :has Genre In ?Show"^^xsd:string ;
+          rdfs:label "has Genre In"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Performance
-:Performance rdf:type owl:ObjectProperty .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#hasPerformer
+:hasPerformer rdf:type owl:ObjectProperty ;
+              owl:inverseOf :is_performed_by ;
+              rdfs:domain :Performer ;
+              rdfs:range :Show ;
+              <http://purl.org/dc/elements/1.1/Description> "The performer in a show"^^xsd:string ;
+              :Property_Usage "?Performer :has Played In ?Show"^^xsd:string ;
+              rdfs:label "has Palyed In"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Person
-:Person rdf:type owl:ObjectProperty .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#hasSponsor
+:hasSponsor rdf:type owl:ObjectProperty ;
+            owl:inverseOf :is_sponsor_by ;
+            rdfs:domain :Sponsor ;
+            rdfs:range :Show ;
+            <http://purl.org/dc/elements/1.1/Description> "A sponsor has sponsored a show"^^xsd:string ;
+            :Property_Usage "?Sponsor :has Sponsored ?Show"^^xsd:string ;
+            rdfs:label "has Sponsored"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#hasVenue
+:hasVenue rdf:type owl:ObjectProperty ;
+          owl:inverseOf :is_held_at ;
+          rdfs:domain :Venue ;
+          rdfs:range :Show ;
+          <http://purl.org/dc/elements/1.1/Description> "A venue has a show booked"^^xsd:string ;
+          :Property_Usage "?Venue :venue Has Show of ?Show"^^xsd:string ;
+          rdfs:label "venue Has Show of"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_genre_of
+:is_genre_of rdf:type owl:ObjectProperty ;
+             rdfs:domain :Show ;
+             rdfs:range :Genre ;
+             <http://purl.org/dc/elements/1.1/Description> "A show is genre of genre"^^xsd:string ;
+             :Property_Usage "?Show :is Genre Of ?Genre"^^xsd:string ;
+             rdfs:label "is Genre Of"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_held_at
+:is_held_at rdf:type owl:ObjectProperty ;
+            rdfs:domain :Show ;
+            rdfs:range :Venue ;
+            <http://purl.org/dc/elements/1.1/Description> "A show has a venue"^^xsd:string ;
+            :Property_Usage "?Show :is held At ?Venue"^^xsd:string ;
+            rdfs:label "is Held At"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_performed_by
 :is_performed_by rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf :Performance ;
-                 rdfs:domain :Performance ;
-                 rdfs:range :Performer .
+                 rdfs:domain :Show ;
+                 rdfs:range :Performer ;
+                 <http://purl.org/dc/elements/1.1/Description> "A show is performed by a performer"^^xsd:string ;
+                 :Property_Usage "?Show :is Performed By ?Performer"^^xsd:string ;
+                 rdfs:label "is Performed By"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_performer_in
-:is_performer_in rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf :Person ;
-                 rdfs:domain :Performer ;
-                 rdfs:range :Performance .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_sponsor_by
+:is_sponsor_by rdf:type owl:ObjectProperty ;
+               rdfs:domain :Show ;
+               rdfs:range :Sponsor ;
+               <http://purl.org/dc/elements/1.1/Description> "A show has a sponsor or sponsors"^^xsd:string ;
+               :Property_Usage "?Show :is Sponsored By ?Sponsor"^^xsd:string ;
+               rdfs:label "is Sponsored By"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#is_sponsored_by
-:is_sponsored_by rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf :Exhibition ;
-                 rdfs:domain :Exhibition ;
-                 rdfs:range :Sponsor .
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#GenreName
+:GenreName rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Genre ;
+           rdfs:range xsd:string ;
+           :Property_Usage "?Genre :GenreName 'Clown'^^xsd:string"^^xsd:string ;
+           rdfs:comment "Link Genre to its name"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#PerformerName
+:PerformerName rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Performer ;
+               rdfs:range xsd:string ;
+               :Property_Usage "?Performer :PerformerName 'Davy Macdonald'^^xsd:string"^^xsd:string ;
+               rdfs:comment "Link Performer to its name"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ShowAdmissionPrice
+:ShowAdmissionPrice rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Show ;
+                    rdfs:range xsd:string ;
+                    :Property_Usage "?Show :ShowAdmissionPrice '£39'^^xsd:string"^^xsd:string ;
+                    rdfs:comment "Link show to its ticket price"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ShowAgeGroup
+:ShowAgeGroup rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Show ;
+              rdfs:range xsd:string ;
+              :Property_Usage "?Show :ShowAgeGroup 'For children 5 and over'^^xsd:string"^^xsd:string ;
+              rdfs:comment "Link a show to its suitable age group"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ShowDatetime
+:ShowDatetime rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Show ;
+              rdfs:range xsd:dateTime ;
+              :Property_Usage "?Show :ShowDatetime ''^^xsd:string"^^xsd:string ;
+              rdfs:comment "Link a show to its show date and time"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ShowDuration
+:ShowDuration rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Show ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Link a show to its duration"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ShowName
+:ShowName rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Show ;
+          rdfs:range xsd:string ;
+          rdfs:comment "Link Show to its name"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#SponsorName
+:SponsorName rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain :Sponsor ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Link Sponsor to its name"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#VenueName
+:VenueName rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain :Venue ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Link Venue to its name"^^xsd:string .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Acoustic
-:Acoustic rdf:type owl:Class ;
-          rdfs:subClassOf :Music .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Blues
-:Blues rdf:type owl:Class ;
-       rdfs:subClassOf :Music .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Cabaret
-:Cabaret rdf:type owl:Class ;
-         rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ChildrensShow
-:ChildrensShow rdf:type owl:Class ;
-               rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Circus
-:Circus rdf:type owl:Class ;
-        rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Classical
-:Classical rdf:type owl:Class ;
-           rdfs:subClassOf :Music .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Clown
-:Clown rdf:type owl:Class ;
-       rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Comedy
-:Comedy rdf:type owl:Class ;
-        rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Contemporary
-:Contemporary rdf:type owl:Class ;
-              rdfs:subClassOf :DisplayArt .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Craft
-:Craft rdf:type owl:Class ;
-       rdfs:subClassOf :DisplayArt .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Dance
-:Dance rdf:type owl:Class ;
-       rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#DisplayArt
-:DisplayArt rdf:type owl:Class ;
-            rdfs:subClassOf :Genre .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#DancePerformanceHeldAtTemperanceHall
+:DancePerformanceHeldAtTemperanceHall rdf:type owl:Class ;
+                                      owl:equivalentClass [ owl:intersectionOf ( :Performance
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty :is_genre_of ;
+                                                                                   owl:someValuesFrom [ owl:intersectionOf ( :Genre
+                                                                                                                             [ rdf:type owl:Restriction ;
+                                                                                                                               owl:onProperty :GenreName ;
+                                                                                                                               owl:hasValue "Dance"^^xsd:string
+                                                                                                                             ]
+                                                                                                                           ) ;
+                                                                                                        rdf:type owl:Class
+                                                                                                      ]
+                                                                                 ]
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty :is_held_at ;
+                                                                                   owl:someValuesFrom [ owl:intersectionOf ( :Venue
+                                                                                                                             [ rdf:type owl:Restriction ;
+                                                                                                                               owl:onProperty :VenueName ;
+                                                                                                                               owl:hasValue "Temperance Hall"^^xsd:string
+                                                                                                                             ]
+                                                                                                                           ) ;
+                                                                                                        rdf:type owl:Class
+                                                                                                      ]
+                                                                                 ]
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty :ShowName ;
+                                                                                   owl:hasValue "Dance Forms 76th International Showcase"^^xsd:string
+                                                                                 ]
+                                                                               ) ;
+                                                            rdf:type owl:Class
+                                                          ] ;
+                                      rdfs:subClassOf :Performance ;
+                                      rdfs:comment "Define an dance performance is held at specific venue: Temperance Hall"^^xsd:string ,
+                                                   "This is a defined class required by coursework specification"^^xsd:string ;
+                                      rdfs:label "Dance Performance Held At Temperance Hall"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Event
 :Event rdf:type owl:Class ;
-       owl:disjointWith :Exhibition ,
-                        :Genre ,
-                        :Performance ,
-                        :Person ,
-                        :Sponsor ,
-                        :Venue .
+       rdfs:subClassOf :Show ;
+       rdfs:label "Event"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#EventWithFreeEntryOn20210809
+:EventWithFreeEntryOn20210809 rdf:type owl:Class ;
+                              owl:equivalentClass [ owl:intersectionOf ( :Event
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty :ShowAdmissionPrice ;
+                                                                           owl:hasValue "Free Entry"^^xsd:string
+                                                                         ]
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty :ShowDatetime ;
+                                                                           owl:hasValue "2021-08-09T09:00:00"^^xsd:dateTime
+                                                                         ]
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty :ShowName ;
+                                                                           owl:hasValue "Love Countryside Event"^^xsd:string
+                                                                         ]
+                                                                       ) ;
+                                                    rdf:type owl:Class
+                                                  ] ;
+                              rdfs:subClassOf :Event ;
+                              rdfs:comment "Define an evnet show with free entry on a spcific date"^^xsd:string ,
+                                           "This is a defined class required by coursework specification"^^xsd:string ;
+                              rdfs:label "Evnet With Free Entry"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Exhibition
 :Exhibition rdf:type owl:Class ;
-            owl:disjointWith :Genre ,
-                             :Performance ,
-                             :Person ,
-                             :Sponsor ,
-                             :Venue .
+            rdfs:subClassOf :Show ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :is_sponsor_by ;
+                              owl:someValuesFrom :Sponsor
+                            ] ;
+            rdfs:label "Exhibition"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#ExhibitionSponsoredByNorth-EsternBank
+:ExhibitionSponsoredByNorth-EsternBank rdf:type owl:Class ;
+                                       owl:equivalentClass [ owl:intersectionOf ( :Exhibition
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty :is_sponsor_by ;
+                                                                                    owl:someValuesFrom [ owl:intersectionOf ( :Sponsor
+                                                                                                                              [ rdf:type owl:Restriction ;
+                                                                                                                                owl:onProperty :SponsorName ;
+                                                                                                                                owl:hasValue "North-Eastern Bank"^^xsd:string
+                                                                                                                              ]
+                                                                                                                            ) ;
+                                                                                                         rdf:type owl:Class
+                                                                                                       ]
+                                                                                  ]
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty :ShowName ;
+                                                                                    owl:hasValue "Aspects Of Edinburgh"^^xsd:string
+                                                                                  ]
+                                                                                ) ;
+                                                             rdf:type owl:Class
+                                                           ] ;
+                                       rdfs:subClassOf :Exhibition ;
+                                       rdfs:comment "Define an exihibition show is sponsored by North-Estern Bank"^^xsd:string ,
+                                                    "This is a defined class required by coursework specification"^^xsd:string ;
+                                       rdfs:label "Exhibition Sponsored By North-Estern Bank"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Genre
 :Genre rdf:type owl:Class ;
-       owl:disjointWith :Performance ,
-                        :Person ,
-                        :Sponsor ,
-                        :Venue .
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasGenre ;
+                         owl:someValuesFrom :Show
+                       ] ;
+       <http://purl.org/dc/elements/1.1/example> "A show named \"Love Coutryside Event\" is genre of \"Historical\" genre"^^xsd:string ;
+       rdfs:comment "A show genre class."^^xsd:string ;
+       rdfs:label "Genre"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Improv
-:Improv rdf:type owl:Class ;
-        rdfs:subClassOf :Comedy .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#GroupPerformer
+:GroupPerformer rdf:type owl:Class ;
+                rdfs:subClassOf :Performer ;
+                owl:disjointWith :IndividualPerformer ;
+                <http://purl.org/dc/elements/1.1/example> "A group performer named \"Bubble Laboratory\" is performed in a children's show"^^xsd:string ;
+                rdfs:comment "It is a group of performers, it could be a company"^^xsd:string ;
+                rdfs:label "Group Performer"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Interactive
-:Interactive rdf:type owl:Class ;
-             rdfs:subClassOf :Genre .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#IndividualPerformer
+:IndividualPerformer rdf:type owl:Class ;
+                     rdfs:subClassOf :Performer ;
+                     <http://purl.org/dc/elements/1.1/example> "A performer named \"Davy Macdonald\" is performed in \"Fun summer musical art\""^^xsd:string ;
+                     rdfs:comment "The individual performer with no company, performe solo"^^xsd:string ;
+                     rdfs:label "Individual Performer"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Jazz
-:Jazz rdf:type owl:Class ;
-      rdfs:subClassOf :Music .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Magic
-:Magic rdf:type owl:Class ;
-       rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Music
-:Music rdf:type owl:Class ;
-       rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Musicals
-:Musicals rdf:type owl:Class ;
-          rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Opera
-:Opera rdf:type owl:Class ;
-       rdfs:subClassOf :Music .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Painting
-:Painting rdf:type owl:Class ;
-          rdfs:subClassOf :DisplayArt .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#MusicalComedyGenreAgeGroup
+:MusicalComedyGenreAgeGroup rdf:type owl:Class ;
+                            owl:equivalentClass [ owl:intersectionOf ( :Performance
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty :is_genre_of ;
+                                                                         owl:someValuesFrom [ owl:intersectionOf ( :Genre
+                                                                                                                   [ rdf:type owl:Restriction ;
+                                                                                                                     owl:onProperty :GenreName ;
+                                                                                                                     owl:hasValue "Comedy"^^xsd:string
+                                                                                                                   ]
+                                                                                                                   [ rdf:type owl:Restriction ;
+                                                                                                                     owl:onProperty :GenreName ;
+                                                                                                                     owl:hasValue "Musical"^^xsd:string
+                                                                                                                   ]
+                                                                                                                 ) ;
+                                                                                              rdf:type owl:Class
+                                                                                            ]
+                                                                       ]
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty :ShowName ;
+                                                                         owl:hasValue "World Tour Music Act"^^xsd:string
+                                                                       ]
+                                                                     ) ;
+                                                  rdf:type owl:Class
+                                                ] ;
+                            rdfs:subClassOf :Performance ;
+                            rdfs:comment "Define a musical comedy genre show is suitable for children aged 12 and over"^^xsd:string ,
+                                         "This is a defined class required by coursework specification"^^xsd:string ;
+                            rdfs:label "Musical Comedy Genre suitable for children"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Performance
 :Performance rdf:type owl:Class ;
-             owl:disjointWith :Person ,
-                              :Sponsor ,
-                              :Venue .
+             rdfs:subClassOf :Show ;
+             rdfs:label "Performance"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Performer
 :Performer rdf:type owl:Class ;
-           rdfs:subClassOf :Person .
+           rdfs:subClassOf :Person ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasPerformer ;
+                             owl:someValuesFrom :Show
+                           ] ;
+           owl:disjointWith :Sponsor ;
+           rdfs:comment "Performer is a person who perform in a show"^^xsd:string ;
+           rdfs:label "Performer"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Person
 :Person rdf:type owl:Class ;
-        owl:disjointWith :Venue .
+        rdfs:comment "Class to deifne a Person"^^xsd:string ,
+                     "Person class include performer, group performer, individual performer, and sponsor"^^xsd:string ;
+        rdfs:label "Person"^^xsd:string .
 
 
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Photography
-:Photography rdf:type owl:Class ;
-             rdfs:subClassOf :DisplayArt .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#PhysicalTheatre
-:PhysicalTheatre rdf:type owl:Class ;
-                 rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Rock
-:Rock rdf:type owl:Class ;
-      rdfs:subClassOf :Music .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Sculpture
-:Sculpture rdf:type owl:Class ;
-           rdfs:subClassOf :DisplayArt .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#SpokenWord
-:SpokenWord rdf:type owl:Class ;
-            rdfs:subClassOf :Genre .
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Show
+:Show rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :is_genre_of ;
+                        owl:someValuesFrom :Genre
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :is_held_at ;
+                        owl:someValuesFrom :Venue
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :is_performed_by ;
+                        owl:someValuesFrom :Performer
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :is_sponsor_by ;
+                        owl:someValuesFrom :Sponsor
+                      ] ;
+      rdfs:comment "The show class include Event, Exhibition and Performance in the arts fetival"^^xsd:string ;
+      rdfs:label "Show"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Sponsor
 :Sponsor rdf:type owl:Class ;
-         rdfs:subClassOf :Person ;
-         owl:disjointWith :Venue .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Stand-up
-:Stand-up rdf:type owl:Class ;
-          rdfs:subClassOf :Comedy .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Storytelling
-:Storytelling rdf:type owl:Class ;
-              rdfs:subClassOf :Comedy .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Theatre
-:Theatre rdf:type owl:Class ;
-         rdfs:subClassOf :Genre .
-
-
-###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Variety
-:Variety rdf:type owl:Class ;
-         rdfs:subClassOf :Genre .
+         rdfs:subClassOf :Person ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasSponsor ;
+                           owl:someValuesFrom :Show
+                         ] ;
+         <http://purl.org/dc/elements/1.1/example> "A show named \"Magic Night Act\" is sponsored by \"Johnnie Walker\""^^xsd:string ;
+         rdfs:comment "A sponsor is a person who sponsor a show"^^xsd:string ;
+         rdfs:label "Sponsor"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Venue
-:Venue rdf:type owl:Class .
+:Venue rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasVenue ;
+                         owl:someValuesFrom :Show
+                       ] ;
+       <http://purl.org/dc/elements/1.1/example> "Temperance Hall, The Jazz Bar"^^xsd:string ;
+       rdfs:comment "Calss has all the venues for the show"^^xsd:string ;
+       rdfs:label "Venue"^^xsd:string .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#A_Family_At_War
+:A_Family_At_War rdf:type owl:NamedIndividual ,
+                          :Performance ,
+                          :Show ;
+                 :is_performed_by :Dave_Dixon ;
+                 :ShowAdmissionPrice "£35"^^xsd:string ;
+                 :ShowName "A Family At War"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#AspectsOfEdinburgh
+:AspectsOfEdinburgh rdf:type owl:NamedIndividual ,
+                             :Exhibition ,
+                             :ExhibitionSponsoredByNorth-EsternBank ,
+                             :Show ;
+                    :is_performed_by :MarkBunyan ;
+                    :is_sponsor_by :North-Eastern_Bank ;
+                    :ShowName "Aspects Of Edinburgh"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Assembly_Rooms
+:Assembly_Rooms rdf:type owl:NamedIndividual ,
+                         :Venue ;
+                :hasVenue :Production_of_Antigone ;
+                :VenueName "Assembly Rooms"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#BubbleLaboratory
+:BubbleLaboratory rdf:type owl:NamedIndividual ,
+                           :GroupPerformer ,
+                           :Performer ;
+                  :PerformerName "Bubble Laboratory"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Cabaret
+:Cabaret rdf:type owl:NamedIndividual ,
+                  :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Circus
+:Circus rdf:type owl:NamedIndividual ,
+                 :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Clown
+:Clown rdf:type owl:NamedIndividual ,
+                :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Comedy
+:Comedy rdf:type owl:NamedIndividual ,
+                 :Genre ;
+        :hasGenre :WorldTourMusicAct .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Dance
+:Dance rdf:type owl:NamedIndividual ,
+                :Genre ;
+       :hasGenre :DanceForms76thInternationalShowcase ;
+       :GenreName "Dance"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#DanceForms76thInternationalShowcase
+:DanceForms76thInternationalShowcase rdf:type owl:NamedIndividual ,
+                                              :DancePerformanceHeldAtTemperanceHall ,
+                                              :Performance ,
+                                              :Show ;
+                                     :is_genre_of :Dance ;
+                                     :is_held_at :Temperance_Hall ;
+                                     :ShowDatetime "2021-08-08T09:00:00"^^xsd:dateTime ;
+                                     :ShowName "Dance Forms 76th International Showcase"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Dave_Dixon
+:Dave_Dixon rdf:type owl:NamedIndividual ,
+                     :IndividualPerformer ,
+                     :Performer ;
+            :hasPerformer :A_Family_At_War ;
+            :PerformerName "Dave Dixon"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#DavyMacdonald
+:DavyMacdonald rdf:type owl:NamedIndividual ,
+                        :IndividualPerformer ,
+                        :Performer ;
+               :PerformerName "Davy Macdonald"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Historical
+:Historical rdf:type owl:NamedIndividual ,
+                     :Genre ;
+            :hasGenre :LoveCoutrysideEvent ;
+            :GenreName "Historical"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Horror
+:Horror rdf:type owl:NamedIndividual ,
+                 :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Interactive
+:Interactive rdf:type owl:NamedIndividual ,
+                      :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#JohnnieWalker
+:JohnnieWalker rdf:type owl:NamedIndividual ,
+                        :Sponsor ;
+               :SponsorName "Johnnie Walker"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Laughing_House
+:Laughing_House rdf:type owl:NamedIndividual ,
+                         :Venue ;
+                :VenueName "Laughing House"^^xsd:string ;
+                rdfs:label "Laughing House"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#LaurenMeckel
+:LaurenMeckel rdf:type owl:NamedIndividual ,
+                       :IndividualPerformer ,
+                       :Performer ;
+              :hasPerformer <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#All_the_World’s_a_Stage> ;
+              :PerformerName "Lauren Meckel"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#LothianYouthDanceCompany
+:LothianYouthDanceCompany rdf:type owl:NamedIndividual ,
+                                   :GroupPerformer ,
+                                   :Performer ;
+                          :PerformerName "Lothian Youth Dance Company"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#LoveCoutrysideEvent
+:LoveCoutrysideEvent rdf:type owl:NamedIndividual ,
+                              :Event ,
+                              :EventWithFreeEntryOn20210809 ,
+                              :Show ;
+                     :is_genre_of :Historical ;
+                     :ShowAdmissionPrice "Free Entry"^^xsd:string ;
+                     :ShowDatetime "2021-08-09T09:00:00"^^xsd:dateTime ;
+                     :ShowName "Love Countryside Event"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Magic
+:Magic rdf:type owl:NamedIndividual ,
+                :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#MarkBunyan
+:MarkBunyan rdf:type owl:NamedIndividual ,
+                     :IndividualPerformer ,
+                     :Performer ;
+            :hasPerformer :AspectsOfEdinburgh ,
+                          <http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#All_the_World’s_a_Stage> ;
+            :PerformerName "Mark Bunyan"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Music
+:Music rdf:type owl:NamedIndividual ,
+                :Genre ;
+       :hasGenre :WorldTourMusicAct .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Musicals
+:Musicals rdf:type owl:NamedIndividual ,
+                   :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#North-Eastern_Bank
+:North-Eastern_Bank rdf:type owl:NamedIndividual ,
+                             :Sponsor ;
+                    :hasSponsor :AspectsOfEdinburgh ;
+                    :SponsorName "North-Eastern Bank"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#OutsideGreyfriarsBobbyBar
+:OutsideGreyfriarsBobbyBar rdf:type owl:NamedIndividual ,
+                                    :Venue ;
+                           :VenueName "Outside Greyfriars Bobby Bar"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#PhysicalTheatre
+:PhysicalTheatre rdf:type owl:NamedIndividual ,
+                          :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Production_of_Antigone
+:Production_of_Antigone rdf:type owl:NamedIndividual ,
+                                 :Performance ,
+                                 :Show ;
+                        :is_held_at :Assembly_Rooms ;
+                        :ShowDuration "45 Mins"^^xsd:string ;
+                        :ShowName "Production of Antigone"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Storytelling
+:Storytelling rdf:type owl:NamedIndividual ,
+                       :Genre ;
+              :GenreName "Storytelling"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Temperance_Hall
+:Temperance_Hall rdf:type owl:NamedIndividual ,
+                          :Venue ;
+                 :hasVenue :DanceForms76thInternationalShowcase ;
+                 :VenueName "Temperance Hall"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#TheJazzBar
+:TheJazzBar rdf:type owl:NamedIndividual ,
+                     :Venue ;
+            :VenueName "The Jazz Bar"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#Theatre
+:Theatre rdf:type owl:NamedIndividual ,
+                  :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#VirginMoney
+:VirginMoney rdf:type owl:NamedIndividual ,
+                      :Sponsor ;
+             :SponsorName "Virgin Money UK"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#VisualArt
-:VisualArt rdf:type owl:Class ;
-           rdfs:subClassOf :DisplayArt .
+:VisualArt rdf:type owl:NamedIndividual ,
+                    :Genre .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#WorldTourMusicAct
+:WorldTourMusicAct rdf:type owl:NamedIndividual ,
+                            :MusicalComedyGenreAgeGroup ,
+                            :Performance ,
+                            :Show ;
+                   :is_genre_of :Comedy ,
+                                :Music ;
+                   :ShowAgeGroup "Children 12 above"^^xsd:string ;
+                   :ShowName "World Tour Music Act"^^xsd:string .
+
+
+###  http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#All_the_World’s_a_Stage
+<http://www.semanticweb.org/YuanyuanZhou/ontologies/2021/4/ArtsFestival#All_the_World’s_a_Stage> rdf:type owl:NamedIndividual ,
+                                                                                                          :Performance ,
+                                                                                                          :Show ;
+                                                                                                 :is_performed_by :LaurenMeckel ,
+                                                                                                                  :MarkBunyan ;
+                                                                                                 :ShowName "All the World’s a Stage"^^xsd:string .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Event
+                :Exhibition
+                :Performance
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Genre
+                :Person
+                :Show
+                :Venue
+              )
+] .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
